@@ -1,0 +1,156 @@
+{
+  "examples": [
+    {
+      "input": {
+        "text": "This Software License Agreement ('Agreement') is entered into as of January 15, 2024, by and between TechCorp Inc., a Delaware corporation ('Licensor'), and DataSystems LLC ('Licensee'). Licensor hereby grants Licensee a non-exclusive license to use the Software for a term of three years, subject to payment of an annual license fee of $50,000.",
+        "entities": [
+          {"id": "ent_001", "text": "TechCorp Inc.", "type": "Legal_Party"},
+          {"id": "ent_002", "text": "Licensor", "type": "Legal_Party"},
+          {"id": "ent_003", "text": "DataSystems LLC", "type": "Legal_Party"},
+          {"id": "ent_004", "text": "Licensee", "type": "Legal_Party"},
+          {"id": "ent_005", "text": "grants Licensee a non-exclusive license", "type": "Right"},
+          {"id": "ent_006", "text": "term of three years", "type": "Temporal_Entity"},
+          {"id": "ent_007", "text": "payment of an annual license fee", "type": "Obligation"},
+          {"id": "ent_008", "text": "$50,000", "type": "Financial_Term"}
+        ]
+      },
+      "output": {
+        "relationships": [
+          {
+            "source_entity_id": "ent_002",
+            "source_entity_text": "Licensor",
+            "target_entity_id": "ent_004",
+            "target_entity_text": "Licensee",
+            "relationship_type": "GRANTS_RIGHT",
+            "evidence": "Licensor hereby grants Licensee a non-exclusive license to use the Software",
+            "reasoning": "Step 1: Found 'Licensor' and 'Licensee' entities with 'grants' verb between them. Step 2: Context shows explicit grant of rights using 'hereby grants'. Step 3: GRANTS_RIGHT relationship from granting party to receiving party. Step 4: Evidence contains explicit grant language. Step 5: Confidence 1.0 - unambiguous grant of rights with formal legal language.",
+            "confidence": 1.0,
+            "properties": {
+              "right_type": "license",
+              "exclusivity": "non-exclusive",
+              "subject": "use the Software"
+            }
+          },
+          {
+            "source_entity_id": "ent_004",
+            "source_entity_text": "Licensee",
+            "target_entity_id": "ent_007",
+            "target_entity_text": "payment of an annual license fee",
+            "relationship_type": "OBLIGATES",
+            "evidence": "subject to payment of an annual license fee of $50,000",
+            "reasoning": "Step 1: 'Licensee' and 'payment obligation' appear in same sentence connected by 'subject to'. Step 2: 'Subject to payment' indicates conditional obligation. Step 3: OBLIGATES relationship - the right is conditioned on payment. Step 4: Evidence shows clear payment requirement. Step 5: Confidence 0.9 - clear obligation implied by 'subject to'.",
+            "confidence": 0.9,
+            "properties": {
+              "obligated_party": "Licensee",
+              "obligation_type": "payment",
+              "frequency": "annual"
+            }
+          },
+          {
+            "source_entity_id": "ent_007",
+            "source_entity_text": "payment of an annual license fee",
+            "target_entity_id": "ent_008",
+            "target_entity_text": "$50,000",
+            "relationship_type": "FINANCIALLY_RELATES",
+            "evidence": "annual license fee of $50,000",
+            "reasoning": "Step 1: Payment obligation and dollar amount in same phrase. Step 2: 'of $50,000' directly specifies the amount. Step 3: FINANCIALLY_RELATES connecting obligation to specific amount. Step 4: Evidence explicitly states the amount. Step 5: Confidence 1.0 - explicit financial amount.",
+            "confidence": 1.0,
+            "properties": {
+              "amount": 50000,
+              "currency": "USD",
+              "payment_type": "license_fee"
+            }
+          },
+          {
+            "source_entity_id": "ent_005",
+            "source_entity_text": "grants Licensee a non-exclusive license",
+            "target_entity_id": "ent_006",
+            "target_entity_text": "term of three years",
+            "relationship_type": "TEMPORALLY_PRECEDES",
+            "evidence": "grants Licensee a non-exclusive license to use the Software for a term of three years",
+            "reasoning": "Step 1: License grant and term duration in same clause. Step 2: 'for a term of' indicates temporal constraint on the right. Step 3: TEMPORALLY_PRECEDES - the license has a time-bound nature. Step 4: Evidence shows clear temporal limitation. Step 5: Confidence 0.85 - clear but could also be interpreted as a property of the license.",
+            "confidence": 0.85,
+            "properties": {
+              "duration": "3 years",
+              "constraint_type": "term_length"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "text": "Either party may terminate this Agreement upon thirty (30) days written notice if the other party materially breaches any provision of Section 4.2 and fails to cure such breach within fifteen (15) days after receiving written notice thereof. Upon termination, all rights granted under Section 2.1 shall immediately cease.",
+        "entities": [
+          {"id": "ent_010", "text": "Either party may terminate this Agreement", "type": "Right"},
+          {"id": "ent_011", "text": "thirty (30) days written notice", "type": "Temporal_Entity"},
+          {"id": "ent_012", "text": "materially breaches", "type": "Legal_Concept"},
+          {"id": "ent_013", "text": "Section 4.2", "type": "Clause_Reference"},
+          {"id": "ent_014", "text": "cure such breach within fifteen (15) days", "type": "Obligation"},
+          {"id": "ent_015", "text": "fifteen (15) days", "type": "Temporal_Entity"},
+          {"id": "ent_016", "text": "Section 2.1", "type": "Clause_Reference"}
+        ]
+      },
+      "output": {
+        "relationships": [
+          {
+            "source_entity_id": "ent_010",
+            "source_entity_text": "Either party may terminate this Agreement",
+            "target_entity_id": "ent_013",
+            "target_entity_text": "Section 4.2",
+            "relationship_type": "DEPENDS_ON",
+            "evidence": "may terminate this Agreement upon thirty (30) days written notice if the other party materially breaches any provision of Section 4.2",
+            "reasoning": "Step 1: Termination right and Section 4.2 reference in conditional clause. Step 2: 'if the other party materially breaches any provision of Section 4.2' creates dependency. Step 3: DEPENDS_ON - termination right is conditional on breach of Section 4.2. Step 4: Evidence shows clear conditional relationship with 'if'. Step 5: Confidence 0.95 - explicit conditional dependency.",
+            "confidence": 0.95,
+            "properties": {
+              "dependency_type": "conditional",
+              "condition": "material breach of Section 4.2"
+            }
+          },
+          {
+            "source_entity_id": "ent_010",
+            "source_entity_text": "Either party may terminate this Agreement",
+            "target_entity_id": "ent_011",
+            "target_entity_text": "thirty (30) days written notice",
+            "relationship_type": "DEPENDS_ON",
+            "evidence": "Either party may terminate this Agreement upon thirty (30) days written notice",
+            "reasoning": "Step 1: Termination right and notice period in same phrase. Step 2: 'upon thirty (30) days written notice' indicates prerequisite. Step 3: DEPENDS_ON - termination requires notice period. Step 4: Evidence uses 'upon' indicating dependency. Step 5: Confidence 0.9 - clear procedural requirement.",
+            "confidence": 0.9,
+            "properties": {
+              "dependency_type": "prerequisite",
+              "requirement": "30 days written notice"
+            }
+          },
+          {
+            "source_entity_id": "ent_014",
+            "source_entity_text": "cure such breach within fifteen (15) days",
+            "target_entity_id": "ent_015",
+            "target_entity_text": "fifteen (15) days",
+            "relationship_type": "TEMPORALLY_PRECEDES",
+            "evidence": "fails to cure such breach within fifteen (15) days after receiving written notice",
+            "reasoning": "Step 1: Cure obligation and time period in same phrase. Step 2: 'within fifteen (15) days' sets temporal deadline. Step 3: TEMPORALLY_PRECEDES - cure must happen before deadline. Step 4: Evidence shows time constraint with 'within'. Step 5: Confidence 1.0 - explicit temporal constraint.",
+            "confidence": 1.0,
+            "properties": {
+              "time_limit": "15 days",
+              "trigger": "after receiving written notice"
+            }
+          },
+          {
+            "source_entity_id": "ent_016",
+            "source_entity_text": "Section 2.1",
+            "target_entity_id": "ent_010",
+            "target_entity_text": "Either party may terminate this Agreement",
+            "relationship_type": "MODIFIES",
+            "evidence": "Upon termination, all rights granted under Section 2.1 shall immediately cease",
+            "reasoning": "Step 1: Section 2.1 reference and termination event in same sentence. Step 2: 'Upon termination...rights granted under Section 2.1 shall cease' shows modification of Section 2.1 rights. Step 3: MODIFIES - termination affects Section 2.1. Step 4: Evidence shows clear modification with 'shall cease'. Step 5: Confidence 0.85 - clear but indirect modification.",
+            "confidence": 0.85,
+            "properties": {
+              "modification_type": "termination_effect",
+              "effect": "rights cease"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

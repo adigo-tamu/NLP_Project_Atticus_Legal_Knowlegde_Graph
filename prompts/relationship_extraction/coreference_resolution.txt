@@ -1,0 +1,130 @@
+COREFERENCE RESOLUTION GUIDELINES
+
+When extracting relationships, you must resolve entity references to their actual entities. Legal documents frequently use multiple ways to refer to the same party or concept.
+
+COMMON COREFERENCE PATTERNS:
+
+1. **Party Definitions**
+   Pattern: "TechCorp Inc. (the 'Licensor')"
+   Resolution: "TechCorp Inc." = "Licensor" = "the Licensor"
+
+   Also look for:
+   - "ABC Corp (hereinafter 'Seller')"
+   - "The Company, DataSystems LLC"
+   - "XYZ Inc., a Delaware corporation ('Provider')"
+
+2. **Generic Party References**
+   Pattern: Use defined term when encountering generic references
+
+   Generic terms that need resolution:
+   - "the Company" → Look for which party is "the Company"
+   - "the Seller" / "the Buyer" → Map to actual party name
+   - "the Licensor" / "the Licensee" → Map to actual party
+   - "the Provider" / "the Customer" → Map to actual party
+   - "such party" → Determine which party from context
+
+3. **Pronoun Resolution**
+   Pattern: "TechCorp Inc. shall deliver the Software. It must..."
+   Resolution: "It" = "TechCorp Inc."
+
+   Pronouns to resolve:
+   - "it" / "its" → Usually refers to most recent relevant entity
+   - "they" / "their" / "them" → Plural entities or parties collectively
+   - "such" → Refers to previously mentioned entity
+
+4. **Role-Based References**
+   When a party has multiple roles, track them:
+
+   Example: "ABC Corp (the 'Seller' and 'Licensor')"
+   Resolution: "ABC Corp" = "Seller" = "Licensor"
+
+5. **Demonstrative References**
+   Pattern: "this Agreement", "said License", "the aforementioned"
+
+   Examples:
+   - "this Agreement" → The main contract document
+   - "said Software" → Previously defined Software
+   - "the aforementioned provision" → Previously mentioned clause
+   - "such rights" → Rights mentioned in prior sentence
+
+6. **Defined Terms**
+   Pattern: Capitalized terms mid-sentence usually defined elsewhere
+
+   Examples:
+   - "Confidential Information" → Look for definition
+   - "Effective Date" → Find where it's defined
+   - "Territory" → Check definitions section
+   - "License Fee" → Should be defined with amount
+
+RESOLUTION STRATEGY:
+
+Step 1: **Identify the canonical name**
+   - Usually appears first in the document
+   - Often in signature block or preamble
+   - May be in parentheses with role
+
+Step 2: **Build alias mapping**
+   - Track all ways the entity is referenced
+   - Include: legal name, role, generic terms
+   - Example: {"TechCorp Inc.": ["Licensor", "the Company", "Provider"]}
+
+Step 3: **Apply to relationships**
+   - When extracting relationship between "Licensor" and "payment obligation"
+   - Resolve "Licensor" to canonical "TechCorp Inc."
+   - Use the actual entity ID, not the reference
+
+AMBIGUITY HANDLING:
+
+If uncertain which entity a reference refers to:
+1. Use surrounding context (within 2 sentences)
+2. Consider subject/object of sentence
+3. Look for explicit clarifications (e.g., "the Seller, ABC Corp")
+4. If still ambiguous: mark with lower confidence (0.6-0.7)
+
+EXAMPLES:
+
+Example 1: Party Resolution
+Text: "TechCorp Inc. ('Seller') agrees to deliver. The Seller shall provide..."
+Resolution: Both "TechCorp Inc." and "The Seller" → same entity
+Relationship: Use entity_id for TechCorp Inc. in both cases
+
+Example 2: Pronoun Resolution
+Text: "Buyer must pay within 30 days. It shall also provide notice."
+Resolution: "It" → "Buyer"
+Relationship: Create relationship using Buyer entity, not "it"
+
+Example 3: Defined Term
+Text: "Software means the application described in Exhibit A. The Software shall be..."
+Resolution: "Software" (first mention) = "The Software" (second mention)
+Relationship: Same entity ID for both
+
+Example 4: Multiple Roles
+Text: "ABC Corp, as both Licensor and Owner, grants..."
+Resolution: "ABC Corp" = "Licensor" = "Owner"
+Relationship: Use ABC Corp entity ID for all three references
+
+SPECIAL CONSIDERATIONS:
+
+1. **"Either party" / "Both parties"**
+   - These don't refer to a specific entity
+   - If extracting obligation: it applies to both
+   - Consider creating two relationships (one for each party)
+
+2. **"The other party"**
+   - Requires context to determine which party
+   - Look at subject of sentence to determine referent
+
+3. **"Such party that..."**
+   - Conditional reference
+   - Determine which party meets the condition
+
+CONFIDENCE IMPACT:
+
+Coreference resolution affects confidence:
+- Clear defined term (e.g., "ABC Corp ('Seller')"): No impact
+- Generic reference with clear context: -0.05 confidence
+- Pronoun resolution with nearby antecedent: -0.1 confidence
+- Ambiguous reference: -0.2 confidence
+- Unresolvable reference: Mark relationship confidence < 0.5
+
+IMPORTANT: Always resolve coreferences BEFORE extracting relationships. The relationship should be between actual entities, not their textual mentions.

@@ -1,0 +1,135 @@
+# Core Dependencies
+python-dotenv>=1.0.0
+
+# LLM Frameworks and APIs
+openai>=1.12.0
+anthropic>=0.18.0
+langchain>=0.1.10
+langchain-openai>=0.0.5
+langchain-anthropic>=0.1.1
+langchain-community>=0.0.20
+tiktoken>=0.6.0
+
+# NLP and ML
+spacy>=3.7.0
+transformers>=4.38.0
+sentence-transformers>=2.5.0
+torch>=2.2.0
+numpy>=1.24.0
+scikit-learn>=1.4.0
+
+# Graph Database
+neo4j>=5.17.0
+py2neo>=2021.2.4
+networkx>=3.2.0
+
+# Vector Database and Embeddings
+chromadb>=0.4.22
+faiss-cpu>=1.8.0
+
+# Document Processing
+pypdf>=4.0.0
+pypdf2>=3.0.1
+pdfplumber>=0.10.3
+python-docx>=1.1.0
+python-pptx>=0.6.23
+markdown>=3.5.0
+
+# Data Processing and Analysis
+pandas>=2.2.0
+pydantic>=2.6.0
+pydantic-settings>=2.1.0
+
+# API Framework
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.9
+httpx>=0.26.0
+
+# Evaluation Metrics
+rouge-score>=0.1.2
+bert-score>=0.3.13
+nltk>=3.8.1
+
+# Utilities
+pyyaml>=6.0.1
+click>=8.1.7
+tqdm>=4.66.0
+rich>=13.7.0
+tenacity>=8.2.3
+
+# Logging and Monitoring
+loguru>=0.7.2
+prometheus-client>=0.19.0
+
+# Testing
+pytest>=8.0.0
+pytest-cov>=4.1.0
+pytest-asyncio>=0.23.4
+pytest-mock>=3.12.0
+httpx>=0.26.0
+
+# Code Quality
+black>=24.1.0
+ruff>=0.2.0
+mypy>=1.8.0
+pre-commit>=3.6.0
+
+# Documentation
+mkdocs>=1.5.3
+mkdocs-material>=9.5.0
+mkdocstrings[python]>=0.24.0
+
+# Development Tools
+ipython>=8.21.0
+jupyter>=1.0.0
+notebook>=7.0.0
+ipykernel>=6.29.0
+
+# Caching and Task Queue
+redis>=5.0.1
+celery>=5.3.6
+
+# Graph Visualization
+pyvis>=0.3.2
+plotly>=5.18.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Configuration Management
+hydra-core>=1.3.2
+omegaconf>=2.3.0
+
+# Database and ORM
+sqlalchemy>=2.0.25
+alembic>=1.13.1
+
+# Security
+cryptography>=42.0.0
+passlib[bcrypt]>=1.7.4
+python-jose[cryptography]>=3.3.0
+
+# Rate Limiting
+slowapi>=0.1.9
+
+# CORS and Middleware
+starlette>=0.36.0
+
+# File Handling
+aiofiles>=23.2.1
+
+# JSON Schema Validation
+jsonschema>=4.21.0
+
+# Retry Logic
+backoff>=2.2.1
+
+# Environment Detection
+python-magic>=0.4.27
+chardet>=5.2.0
+
+# Progress Bars
+alive-progress>=3.1.5
+
+# Graph Export Formats
+rdflib>=7.0.0

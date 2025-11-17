@@ -1,0 +1,147 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Data
+data/raw/*
+data/processed/*
+data/graphs/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/graphs/.gitkeep
+
+# Models
+models/*
+!models/.gitkeep
+*.pth
+*.pt
+*.bin
+*.onnx
+
+# Logs
+logs/
+*.log
+
+# Neo4j
+.neo4j/
+
+# ChromaDB
+chroma/
+*.chroma
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.hypothesis/
+
+# Documentation
+docs/_build/
+site/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Docker
+docker-compose.override.yml
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Ruff
+.ruff_cache/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Redis
+dump.rdb
+
+# API Keys and Secrets
+*.pem
+*.key
+secrets/
+
+# Large Files
+*.pdf
+*.docx
+*.doc
+*.zip
+*.tar.gz
+*.rar
+
+# Except example/test files
+!tests/fixtures/*.pdf
+!tests/fixtures/*.docx
+
+# Cache
+.cache/
+*.cache
+
+# Embeddings
+embeddings/
+*.npy
+*.npz
+
+# Exports
+exports/
+*.graphml
+*.json.gz

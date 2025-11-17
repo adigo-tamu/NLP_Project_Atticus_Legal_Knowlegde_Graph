@@ -1,0 +1,391 @@
+# ============================================
+# Project Atticus - Main Configuration
+# ============================================
+
+# Application Settings
+app:
+  name: "project-atticus"
+  version: "1.0.0"
+  environment: "development"
+  debug: true
+
+# LLM Configuration
+llm:
+  primary_model: "gpt-4o"
+  fallback_model: "gpt-4"
+  claude_model: "claude-3-5-sonnet-20241022"
+
+  # Model Parameters
+  temperature: 0.1
+  max_tokens: 4096
+  top_p: 1.0
+  frequency_penalty: 0.0
+  presence_penalty: 0.0
+
+  # Rate Limiting
+  rate_limit: 60  # requests per minute
+  max_retries: 3
+  retry_delay: 2  # seconds
+  timeout: 120  # seconds
+
+  # Cost Optimization
+  use_cache: true
+  batch_processing: true
+  use_fallback_for_simple: false
+
+# Neo4j Graph Database
+neo4j:
+  uri: "bolt://localhost:7687"
+  database: "legal_kg"
+  max_connection_lifetime: 3600
+  max_connection_pool_size: 50
+  connection_acquisition_timeout: 60
+
+  # Graph Configuration
+  create_constraints: true
+  create_indexes: true
+  enable_apoc: true
+
+# Vector Database (ChromaDB)
+vector_db:
+  type: "chromadb"  # chromadb, faiss, pinecone
+  persist_directory: "./data/chroma"
+  collection_name: "legal_embeddings"
+
+  # Embedding Configuration
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+  embedding_dimension: 384
+  distance_metric: "cosine"
+
+  # Search Configuration
+  top_k: 10
+  score_threshold: 0.7
+
+# Document Processing
+processing:
+  # Chunking Strategy
+  chunk_size: 500
+  chunk_overlap: 100
+  chunking_strategy: "hierarchical"  # hierarchical, semantic, fixed
+
+  # Document Parsing
+  preserve_structure: true
+  extract_metadata: true
+  detect_language: true
+
+  # Preprocessing
+  lowercase: false  # Preserve legal terminology case
+  remove_special_chars: false
+  normalize_whitespace: true
+
+  # Batch Processing
+  batch_size: 10
+  max_concurrent_docs: 5
+  processing_timeout: 300
+
+  # Supported Formats
+  supported_formats:
+    - "pdf"
+    - "docx"
+    - "doc"
+    - "txt"
+    - "json"
+
+# Entity Extraction Configuration
+entity_extraction:
+  # Entity Types
+  entity_types:
+    - "Legal_Party"
+    - "Legal_Concept"
+    - "Obligation"
+    - "Right"
+    - "Jurisdiction"
+    - "Temporal_Entity"
+    - "Financial_Term"
+    - "Clause_Reference"
+
+  # Extraction Parameters
+  confidence_threshold: 0.7
+  max_entities_per_chunk: 50
+  enable_validation: true
+  enable_deduplication: true
+
+  # Entity Attributes
+  extract_attributes: true
+  extract_context: true
+  context_window: 2  # sentences
+
+  # Advanced Features
+  use_coreference: true
+  use_entity_linking: false
+  merge_threshold: 0.85
+
+# Relationship Extraction Configuration
+relationship_extraction:
+  # Relationship Types
+  relationship_types:
+    - "REFERENCES"
+    - "OBLIGATES"
+    - "GRANTS_RIGHT"
+    - "GOVERNS"
+    - "DEFINES"
+    - "MODIFIES"
+    - "DEPENDS_ON"
+    - "CONTRADICTS"
+    - "TEMPORALLY_PRECEDES"
+    - "FINANCIALLY_RELATES"
+
+  # Extraction Parameters
+  confidence_threshold: 0.65
+  max_relationships_per_chunk: 100
+  enable_validation: true
+
+  # Chain-of-Thought
+  enable_cot: true
+  cot_steps: 3
+  extract_reasoning: true
+
+  # Coreference Resolution
+  enable_coreference: true
+  coreference_window: 5  # chunks
+
+  # Relationship Properties
+  extract_evidence: true
+  extract_temporal: true
+  bidirectional_validation: true
+
+# Knowledge Graph Construction
+graph_construction:
+  # Multi-Layer Architecture
+  layers:
+    - "semantic"
+    - "structural"
+    - "metadata"
+
+  # Entity Disambiguation
+  enable_disambiguation: true
+  similarity_threshold: 0.85
+  disambiguation_method: "embedding"  # embedding, llm, hybrid
+
+  # Graph Validation
+  enable_validation: true
+  check_consistency: true
+  detect_cycles: true
+  detect_orphans: true
+
+  # Graph Optimization
+  merge_duplicate_nodes: true
+  merge_duplicate_edges: true
+  prune_low_confidence: false
+  min_confidence: 0.5
+
+  # Indexing Strategy
+  index_properties:
+    - "id"
+    - "text"
+    - "type"
+    - "document_id"
+
+  # Node Properties
+  track_provenance: true
+  track_confidence: true
+  track_timestamps: true
+
+# Query and RAG Configuration
+rag:
+  # Retrieval Strategy
+  retrieval_strategy: "hybrid"  # graph, vector, hybrid
+
+  # Graph Retrieval
+  graph_traversal_depth: 3
+  max_paths: 10
+  path_weights:
+    semantic: 1.0
+    structural: 0.7
+    metadata: 0.5
+
+  # Vector Retrieval
+  vector_top_k: 5
+  rerank: true
+  rerank_model: "cross-encoder/ms-marco-MiniLM-L-6-v2"
+
+  # Hybrid Fusion
+  fusion_method: "reciprocal_rank"  # reciprocal_rank, weighted, llm
+  graph_weight: 0.6
+  vector_weight: 0.4
+
+  # Answer Generation
+  max_context_length: 4000
+  include_sources: true
+  include_reasoning: true
+  generate_explanations: true
+
+  # Competency Questions
+  enable_question_classification: true
+  question_types:
+    - "obligation_query"
+    - "right_query"
+    - "definition_query"
+    - "jurisdiction_query"
+    - "temporal_query"
+    - "conflict_detection"
+
+# Evaluation Configuration
+evaluation:
+  # Target Metrics
+  targets:
+    entity_f1: 0.85
+    relationship_f1: 0.70
+    graph_f1: 0.40
+    query_accuracy: 0.80
+
+  # Evaluation Methods
+  methods:
+    - "entity_metrics"
+    - "relationship_metrics"
+    - "graph_metrics"
+    - "rag_metrics"
+
+  # Dataset Split
+  train_split: 0.6
+  val_split: 0.2
+  test_split: 0.2
+
+  # Baseline Comparisons
+  baselines:
+    - "rule_based"
+    - "fine_tuned_bert"
+
+  # Metrics to Track
+  metrics:
+    - "precision"
+    - "recall"
+    - "f1"
+    - "accuracy"
+    - "processing_time"
+    - "resource_usage"
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  reload: true
+
+  # CORS
+  enable_cors: true
+  allowed_origins:
+    - "http://localhost:3000"
+    - "http://localhost:8000"
+
+  # Rate Limiting
+  rate_limit_enabled: true
+  rate_limit_requests: 100
+  rate_limit_window: 60  # seconds
+
+  # Authentication
+  enable_auth: false
+  jwt_expiration: 1800  # seconds
+
+  # Pagination
+  default_page_size: 20
+  max_page_size: 100
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "detailed"  # simple, detailed, json
+
+  # File Logging
+  file_enabled: true
+  file_path: "./logs/atticus.log"
+  rotation: "500 MB"
+  retention: "10 days"
+
+  # Console Logging
+  console_enabled: true
+  console_colors: true
+
+  # Log Components
+  log_api_requests: true
+  log_llm_calls: true
+  log_db_queries: false
+  log_processing: true
+
+# Monitoring and Metrics
+monitoring:
+  enable_metrics: true
+  metrics_port: 9090
+
+  # Prometheus Metrics
+  track_latency: true
+  track_throughput: true
+  track_errors: true
+  track_llm_costs: true
+
+  # Health Checks
+  health_check_interval: 60  # seconds
+
+# Caching Configuration
+caching:
+  enabled: true
+  backend: "redis"  # redis, memory
+  ttl: 3600  # seconds
+
+  # Cache Keys
+  cache_llm_responses: true
+  cache_embeddings: true
+  cache_query_results: true
+
+# Data Management
+data:
+  # Paths
+  raw_data_dir: "./data/raw"
+  processed_data_dir: "./data/processed"
+  graph_export_dir: "./data/graphs"
+  models_dir: "./models"
+
+  # Dataset Configuration
+  dataset_name: "CUAD"
+  dataset_source: "https://www.atticusprojectai.org/cuad"
+
+  # Export Formats
+  export_formats:
+    - "json"
+    - "graphml"
+    - "csv"
+    - "neo4j_dump"
+
+# Experimental Features
+experimental:
+  enable_fine_tuning: false
+  use_local_models: false
+  local_model_path: ""
+
+  # Advanced Graph Features
+  enable_temporal_reasoning: false
+  enable_probabilistic_kg: false
+  enable_multi_hop_reasoning: true
+
+  # Advanced NLP
+  use_legal_bert: false
+  use_domain_adaptation: false
+
+# Performance Optimization
+performance:
+  # Parallelization
+  enable_multiprocessing: true
+  num_workers: 4
+
+  # GPU Configuration
+  use_gpu: false
+  gpu_device: "cuda:0"
+
+  # Memory Management
+  max_memory_usage: "8GB"
+  enable_gc: true
+  gc_interval: 100  # operations
+
+  # Batching
+  dynamic_batching: true
+  max_batch_wait_time: 1.0  # seconds

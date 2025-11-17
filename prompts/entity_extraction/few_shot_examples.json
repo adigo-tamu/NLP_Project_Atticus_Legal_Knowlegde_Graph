@@ -1,0 +1,221 @@
+{
+  "examples": [
+    {
+      "input": "This Software License Agreement ('Agreement') is entered into as of January 15, 2024, by and between TechCorp Inc., a Delaware corporation ('Licensor'), and DataSystems LLC ('Licensee'). Licensor hereby grants Licensee a non-exclusive license to use the Software for a term of three years, subject to payment of an annual license fee of $50,000.",
+      "output": {
+        "entities": [
+          {
+            "text": "Software License Agreement",
+            "type": "Legal_Concept",
+            "context": "This Software License Agreement ('Agreement') is entered into as of January 15, 2024",
+            "confidence": 0.95,
+            "attributes": {
+              "defined_term": "Agreement",
+              "document_type": "license_agreement"
+            }
+          },
+          {
+            "text": "January 15, 2024",
+            "type": "Temporal_Entity",
+            "context": "This Software License Agreement ('Agreement') is entered into as of January 15, 2024",
+            "confidence": 1.0,
+            "attributes": {
+              "date_value": "2024-01-15",
+              "temporal_type": "effective_date"
+            }
+          },
+          {
+            "text": "TechCorp Inc.",
+            "type": "Legal_Party",
+            "context": "by and between TechCorp Inc., a Delaware corporation ('Licensor')",
+            "confidence": 0.95,
+            "attributes": {
+              "role": "Licensor",
+              "entity_subtype": "corporation",
+              "jurisdiction": "Delaware"
+            }
+          },
+          {
+            "text": "Delaware corporation",
+            "type": "Jurisdiction",
+            "context": "TechCorp Inc., a Delaware corporation ('Licensor')",
+            "confidence": 0.9,
+            "attributes": {
+              "jurisdiction_type": "state",
+              "legal_entity_type": "corporation"
+            }
+          },
+          {
+            "text": "DataSystems LLC",
+            "type": "Legal_Party",
+            "context": "TechCorp Inc., a Delaware corporation ('Licensor'), and DataSystems LLC ('Licensee')",
+            "confidence": 0.95,
+            "attributes": {
+              "role": "Licensee",
+              "entity_subtype": "llc"
+            }
+          },
+          {
+            "text": "grants Licensee a non-exclusive license",
+            "type": "Right",
+            "context": "Licensor hereby grants Licensee a non-exclusive license to use the Software",
+            "confidence": 0.85,
+            "attributes": {
+              "right_type": "license_grant",
+              "right_holder": "Licensee",
+              "exclusivity": "non-exclusive"
+            }
+          },
+          {
+            "text": "term of three years",
+            "type": "Temporal_Entity",
+            "context": "non-exclusive license to use the Software for a term of three years",
+            "confidence": 0.9,
+            "attributes": {
+              "duration": "3 years",
+              "temporal_type": "term_length"
+            }
+          },
+          {
+            "text": "payment of an annual license fee",
+            "type": "Obligation",
+            "context": "for a term of three years, subject to payment of an annual license fee of $50,000",
+            "confidence": 0.85,
+            "attributes": {
+              "obligation_type": "payment",
+              "obligated_party": "Licensee",
+              "frequency": "annual"
+            }
+          },
+          {
+            "text": "$50,000",
+            "type": "Financial_Term",
+            "context": "subject to payment of an annual license fee of $50,000",
+            "confidence": 1.0,
+            "attributes": {
+              "amount": 50000,
+              "currency": "USD",
+              "payment_type": "license_fee",
+              "frequency": "annual"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "input": "Either party may terminate this Agreement upon thirty (30) days written notice if the other party materially breaches any provision of Section 4.2 and fails to cure such breach within fifteen (15) days after receiving written notice thereof.",
+      "output": {
+        "entities": [
+          {
+            "text": "Either party may terminate this Agreement",
+            "type": "Right",
+            "context": "Either party may terminate this Agreement upon thirty (30) days written notice",
+            "confidence": 0.9,
+            "attributes": {
+              "right_type": "termination",
+              "right_holder": "either_party",
+              "conditions": "material breach and failure to cure"
+            }
+          },
+          {
+            "text": "thirty (30) days written notice",
+            "type": "Temporal_Entity",
+            "context": "Either party may terminate this Agreement upon thirty (30) days written notice",
+            "confidence": 0.95,
+            "attributes": {
+              "duration": "30 days",
+              "temporal_type": "notice_period"
+            }
+          },
+          {
+            "text": "materially breaches",
+            "type": "Legal_Concept",
+            "context": "if the other party materially breaches any provision of Section 4.2",
+            "confidence": 0.85,
+            "attributes": {
+              "concept_type": "breach_standard"
+            }
+          },
+          {
+            "text": "Section 4.2",
+            "type": "Clause_Reference",
+            "context": "materially breaches any provision of Section 4.2",
+            "confidence": 1.0,
+            "attributes": {
+              "reference_type": "section",
+              "section_number": "4.2"
+            }
+          },
+          {
+            "text": "cure such breach within fifteen (15) days",
+            "type": "Obligation",
+            "context": "fails to cure such breach within fifteen (15) days after receiving written notice",
+            "confidence": 0.85,
+            "attributes": {
+              "obligation_type": "cure",
+              "deadline": "15 days"
+            }
+          },
+          {
+            "text": "fifteen (15) days",
+            "type": "Temporal_Entity",
+            "context": "fails to cure such breach within fifteen (15) days after receiving written notice",
+            "confidence": 0.95,
+            "attributes": {
+              "duration": "15 days",
+              "temporal_type": "cure_period"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "input": "The parties agree that this Agreement shall be governed by and construed in accordance with the laws of the State of California, without regard to its conflict of laws principles. Any disputes arising under this Agreement shall be subject to the exclusive jurisdiction of the courts located in San Francisco County, California.",
+      "output": {
+        "entities": [
+          {
+            "text": "governed by and construed in accordance with the laws of the State of California",
+            "type": "Jurisdiction",
+            "context": "this Agreement shall be governed by and construed in accordance with the laws of the State of California",
+            "confidence": 0.95,
+            "attributes": {
+              "jurisdiction_type": "governing_law",
+              "state": "California"
+            }
+          },
+          {
+            "text": "State of California",
+            "type": "Jurisdiction",
+            "context": "laws of the State of California, without regard to its conflict of laws principles",
+            "confidence": 1.0,
+            "attributes": {
+              "jurisdiction_level": "state",
+              "state": "California"
+            }
+          },
+          {
+            "text": "conflict of laws principles",
+            "type": "Legal_Concept",
+            "context": "without regard to its conflict of laws principles",
+            "confidence": 0.9,
+            "attributes": {
+              "concept_type": "legal_doctrine"
+            }
+          },
+          {
+            "text": "exclusive jurisdiction of the courts located in San Francisco County, California",
+            "type": "Jurisdiction",
+            "context": "Any disputes arising under this Agreement shall be subject to the exclusive jurisdiction of the courts located in San Francisco County, California",
+            "confidence": 0.95,
+            "attributes": {
+              "jurisdiction_type": "venue",
+              "court_location": "San Francisco County",
+              "state": "California",
+              "exclusivity": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

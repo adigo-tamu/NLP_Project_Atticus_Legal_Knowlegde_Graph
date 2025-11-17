@@ -1,0 +1,95 @@
+You are a legal document analyzer specializing in entity extraction from contracts and legal agreements. Your task is to identify and extract all relevant entities from the provided legal text.
+
+TASK: Extract entities from the following legal text chunk.
+
+TEXT:
+{chunk_text}
+
+ENTITY TYPES TO EXTRACT:
+
+1. **Legal_Party**: Companies, individuals, organizations involved in the contract
+   - Examples: "ABC Corporation", "John Doe", "The Seller", "Buyer"
+   - Include roles when mentioned (e.g., "Seller", "Buyer", "Licensor", "Licensee")
+
+2. **Legal_Concept**: Legal terms, principles, and defined terms
+   - Examples: "confidential information", "intellectual property", "material breach"
+   - Include definitions and technical legal terms
+
+3. **Obligation**: Duties, requirements, must/shall statements
+   - Examples: "Seller shall deliver", "Buyer must pay", "provide notice within 30 days"
+   - Include the party with the obligation if mentioned
+
+4. **Right**: Permissions, entitlements, may statements
+   - Examples: "may terminate", "right to audit", "entitled to indemnification"
+   - Include conditions for exercising rights
+
+5. **Jurisdiction**: Courts, governing law references, legal jurisdictions
+   - Examples: "Delaware law", "federal court", "New York Supreme Court"
+   - Include both specific courts and governing law clauses
+
+6. **Temporal_Entity**: Dates, deadlines, durations, time periods
+   - Examples: "December 31, 2024", "within 30 days", "term of 2 years"
+   - Include both absolute dates and relative time expressions
+
+7. **Financial_Term**: Amounts, payment terms, prices, fees
+   - Examples: "$100,000", "annual license fee", "5% interest rate"
+   - Include currency and payment frequency
+
+8. **Clause_Reference**: References to other sections or clauses
+   - Examples: "Section 3.1", "Article IV", "as defined in Section 2"
+   - Include both explicit and implicit references
+
+EXTRACTION GUIDELINES:
+
+1. Extract the EXACT text as it appears in the document (preserve case and formatting)
+2. For each entity, provide:
+   - **text**: The exact entity text from the document
+   - **type**: One of the 8 entity types above
+   - **context**: The surrounding sentence or phrase (1-2 sentences)
+   - **confidence**: Your confidence score (0.0-1.0)
+   - **attributes**: Additional relevant information (e.g., party role, amount value, date format)
+
+3. Confidence scoring guidelines:
+   - 1.0: Explicitly labeled or clearly defined (e.g., "Seller (hereinafter 'ABC Corp')")
+   - 0.9: Strong contextual evidence (e.g., company name with Inc./LLC)
+   - 0.7-0.8: Good contextual clues (e.g., capitalized terms, legal terminology)
+   - 0.5-0.6: Ambiguous or uncertain (e.g., pronouns, unclear references)
+
+4. Extract ALL occurrences, even if an entity appears multiple times
+
+5. For complex entities (e.g., nested definitions), extract both the main entity and sub-entities
+
+OUTPUT FORMAT (JSON):
+
+{
+  "entities": [
+    {
+      "text": "ABC Corporation",
+      "type": "Legal_Party",
+      "context": "This Agreement is entered into between ABC Corporation (the 'Seller') and XYZ Inc.",
+      "confidence": 0.95,
+      "attributes": {
+        "role": "Seller",
+        "entity_subtype": "company"
+      }
+    },
+    {
+      "text": "within 30 days",
+      "type": "Temporal_Entity",
+      "context": "Payment shall be made within 30 days of invoice date.",
+      "confidence": 0.9,
+      "attributes": {
+        "duration": "30 days",
+        "temporal_type": "deadline"
+      }
+    }
+  ]
+}
+
+IMPORTANT:
+- Return ONLY valid JSON
+- Extract entities even if you're not 100% certain (use confidence scores)
+- Do NOT include explanations outside the JSON structure
+- If no entities are found, return: {"entities": []}
+
+Begin extraction:

@@ -1,0 +1,70 @@
+You are analyzing a LEGAL CONTRACT. Pay special attention to:
+
+CONTRACT-SPECIFIC ENTITY PATTERNS:
+
+1. **Party Identification:**
+   - Look for signature blocks, preambles, and defined party terms
+   - Track aliases: "Company", "Seller", "Licensor", "such party"
+   - Extract party addresses and contact information as attributes
+
+2. **Temporal Patterns in Contracts:**
+   - Effective dates: "effective as of", "entered into on"
+   - Term lengths: "for a period of", "term of X years"
+   - Deadlines: "within X days", "no later than", "by [date]"
+   - Renewal periods: "automatically renew", "renewal term"
+   - Notice periods: "X days prior notice"
+
+3. **Financial Terms in Contracts:**
+   - License fees, royalties, service fees
+   - Payment schedules: "payable in installments", "quarterly payments"
+   - Late fees and interest rates
+   - Caps and floors: "not to exceed", "minimum of"
+   - Currency conversions and adjustments
+
+4. **Obligations - Common Patterns:**
+   - "shall", "must", "will", "is required to", "agrees to"
+   - Negative obligations: "shall not", "may not", "agrees not to"
+   - Conditional obligations: "shall... if", "must... unless"
+   - Ongoing vs. one-time obligations
+
+5. **Rights - Common Patterns:**
+   - "may", "has the right to", "is entitled to", "is permitted to"
+   - Exclusive vs. non-exclusive rights
+   - Transferable vs. non-transferable rights
+   - Rights subject to conditions
+
+6. **Legal Concepts - Contract-Specific:**
+   - Indemnification provisions
+   - Confidentiality obligations
+   - Intellectual property definitions
+   - Force majeure events
+   - Material breach standards
+   - Good faith requirements
+
+7. **Cross-References:**
+   - "as defined in Section X"
+   - "pursuant to Article Y"
+   - "subject to the terms of Section Z"
+   - Exhibits and schedules: "Exhibit A", "Schedule 1"
+
+8. **Defined Terms:**
+   - Usually capitalized mid-sentence
+   - Often in parentheses: "Software (as defined herein)"
+   - Extract both the term and its definition if present
+
+SPECIAL INSTRUCTIONS:
+
+- If a party is referred to by multiple names (e.g., "ABC Corp", "Company", "Seller"), extract each mention
+- For obligations, try to identify WHO has the obligation
+- For rights, try to identify WHO holds the right
+- For temporal entities, normalize if possible (e.g., "thirty days" → "30 days")
+- For financial terms, extract numerical values when present
+- Mark uncertain extractions with lower confidence scores
+
+ANTI-PATTERNS (DO NOT EXTRACT):
+
+- Generic procedural words: "herein", "thereof", "hereunder" (unless part of a larger entity)
+- Structural markers: "whereas", "therefore", "notwithstanding"
+- Article/section numbers without context (extract as Clause_Reference only when referenced)
+
+Focus on SUBSTANTIVE legal entities that convey meaning about the contract's terms, parties, and obligations.
